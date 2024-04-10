@@ -1,0 +1,286 @@
+**** Tạo ticket: 
+hotroit.vht.vn
+**** truy cap server
+ssh <ip> -p <port>
+***
+*** Mediatek support ***
+https://sso.mediatek.com/
+acc: thuyenvn@viettel.com.vn
+pass: Mai@1996
+Cam@2022
+Phuong@3005
+https://hcm44.sapsf.com/login?company=viettel
+****
+https://docs.google.com/spreadsheets/d/1BDQAapHzqH7MV_he3epnrWo5P922OiWkKc-GWZqKmSU/edit#gid=0
+https://docs.google.com/spreadsheets/d/1ASVKRtm-GqtIMCJrWTcZvpxYc061Dk04yyMZqjuOSUI/edit#gid=0
+Tuanna29@1014
+//IoT
+https://github.com/SiliconLabs/wisun-br-linux
+/****Mobaxterm
+// copy file sang router
+scp filename root@192.168.1.1:tmp 
+// ssh vao ap
+ssh root@192.168.1.1
+// kiem tra phan vung
+cat /proc/mtd
+// ghi de lai firware
+cd tmp
+mtd write file firmware
+// nap ubootcwmp
+
+/*** ssh tunnel ***/
+ssh thuyenvn@171.227.37.124 -p 12322
+pass: 123456a@
+
+//
+https://blog.csdn.net/jasonchen_gbd/article/details/45627967
+https://blog.csdn.net/jasonchen_gbd/article/details/46055885
+https://blog.csdn.net/H542723151/article/details/104652560?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-104652560-blog-46055885.pc_relevant_aa&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-104652560-blog-46055885.pc_relevant_aa&utm_relevant_index=1
+https://blog.csdn.net/weixin_38387929/article/details/118728589?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-118728589-blog-46055885.pc_relevant_aa&spm=1001.2101.3001.4242.1&utm_relevant_index=2
+
+//how dhcp work
+https://www.computernetworkingnotes.com/ccna-study-guide/how-dhcp-works-explained-with-examples.html
+
+/**************************tcpdump wireshark*/
+tcpdump -i eth1 -w /tmp/test.pcap -vv 
+B1:
+cd tmp/
+tcpdump -naeqi br-lan -w dhcpd.pcap
+tcpdump -naeqi eth1 -w /tmp/test-down.pcap
+tcpdump -naeqi nas1_0 -w /data/log/test-tr069.pcap
+tcpdump -naeqi br-lan -w br-lab-dhcpc.pcap
+b2: scp root@192.168.2.1:/tmp/dhcpd.pcap
+scp root@192.168.2.236:/tmp/br-lan-dhcpc.pcap ./
+b3: open file dhcp.cap with wireshark
+tftp: tftp -pl pontest.pcap  192.168.1.2
+pc: current Dirctory
+    server interface
+/************************* commit*/
+git add
+git commit -m
+git push origin ap-dev
+
+git pull --rebase
+git stash
+git log --oneline
+
+//merg commit
+git cherry-pick
+git rebase -i HEAD~3
+git push -f origin branchname
+
+// rename message 
+git commit --amend -m ""
+git format-patch HEAD~n
+//delete branch
+git branch -d localbranchname
+git push origin --delete remotebranchname
+/************************* build source AP/
+git clone ssh://172.20.1.73:22/data/git/ONT-MESH-7526.git
+git clone ssh://172.20.1.73:22/data/git/VT-AP2.git/
+172.20.1.73:8060 fisheye
+	    8080 jira
+	    8090 wiki 
+VT-ONT-WIFI-6.git
+(server17: ont/oNt&AP2)
+ssh 172.20.1.17 -p 11022
+cd home/data/AP/thuyenvn/VT-AP2
+make -j10 V=s
+make package/obuspa/{clean,compile} V=s -j10
+# check mesh
+mapd_cli /tmp/mapd_ctrl mib
+
+/*** write serial number ***/
+sysHwInfo serialnumber w VTGR2A27E648
+mac w lan aa bb cc dd ee ff
+fw_printenv bootflag
+fw_setenv bootflag 1
+/*****/
+wifi scan
+iwpriv apcli0 set SiteSurvey=0
+iwpriv apcli0 get_site_survey
+iwpriv rai0 show stainfo | dmesg -c
+/**************************build source ONT/
+ssh 172.20.1.17
+docker exec -it ontv2_common /bin/bash
+su <user>
+cd /data/<user>/<Project folder>
+make
+fakeroot make buildimage
+/*********************/
+telnet <ip>
+telnet/console: admin/euclid@vht380
+web: admin/pi@vht380
+//open console
+check fw: sys imginfo
+open console/telnet:  sys statevalue 1
+push file over tftp: run on ont, on PC: set tftp server
+$ iptables -F
+$ tftp -gr(pl) name_file ip_pc e.p: tftp -gr obuspa 192.168.1.2 
+
+/************************** flash firmware ONT/
+image: app/private/tclinux_builder/tclinux.bin
+reboot ONT dua vao flash mode
+- ipaddr 192.168.1.1
+config tren tftp64: tftp Client:
+local file
+remote File: tclinux.bin
+/*************************** swap OS ONT/
+cat proc/version
+sys bootflag read
+sys imginfo
+sys bootflag swap
+prolinecmd restore default
+sys mac 240b2a9550a0 -n
+/************************* cwmp data/
+https://cwmp-data-models.broadband-forum.org/tr-098-1-8-0.html#D.InternetGatewayDevice:1.InternetGatewayDevice.DownloadDiagnostics.
+/*********************reset factory ONT/
+ prolinecmd restore default
+/*********************** filter wireshark/
+omciproto.me_class_str matches gem
+/********************config wireshark OMCI/
+copy 2 file "BinDecHec.lua" va "omci.lua" vao thu muc wireshark
+them dofile(DATA_DIR.."omci.lua") vao file init.lua
+/***********************config traffic profile ZTE/
+telnet 172.19.20.83
+id:zte
+psw: Z12@ont
+
+alu 172.19.20.85
+isadmin
+Viettel@123
+
+show running-config interface gpon-olt_1/1/2
+
+show pon onu information gpon-onu_1/1/2:113
+
+show gpon onu by sn VTGR902752c8
+%
+show mac-real-time gpon onu gpon-onu_1/1/2:113
+
+
+show remote-unit information gpon-olt_1/1/2
+//delete ONT:
+conf t
+interface gpon-olt_1/1/2
+no onu 4
+
+
+
+/****************************
+ponmgr gpon get info
+# echo show_BoB_information > /proc/pon_phy/debug
+# dmesg
+gponmgr get GemPort
+# tcpdump -naeqi pon
+/****************/
+- filter omci in tcpdump or wireshark (interface capture screen):
+ ether proto 0x88b5
+- filter omci in wireshark after the capture screen: omci
+sys wan2lan on x: mirror omci, - gem header, 
+/**********build ONT wifi6*/
+fakeroot make CUSTOM=CT PROFILE=UNION_EN7523_GLIBC_7916D_MAP_R2_demo MSDK=1 MPLATFORM=UNION_EN7523_GLIBC_7916D_MAP_R2_TR181_ActiveEthWan_demo clean All
+
+fakeroot make CUSTOM=CT PROFILE=UNION_EN7523_GLIBC_7916D_MAP_R2_TR181_ActiveEthWan_demo MSDK=1 clean All
+
+//bootloader
+ID: telecomadmin
+pWD: nE7jA%5m
+
+//linux
+admin
+1234
+
+ifocnfig eth0 down
+ifconfig eth0 hw ether 02:AA:BB:B1:23:45
+/*** config haproxy*?
+ssh root@172.19.20.108
+ssh acs@172.19.36.8
+cd /home/acs/kea/log/
+tailf kea-dhcp4.log
+new terminal
+ssh acs@172.19.20.108
+ssh acs@172.19.36.8
+sudo su
+vi /etc/haproxy/haproxy.cfg
+systemctl restart haproxy
+/****ifconfig wlan0 down ifconfig wlan0 hw ether "xx:xx:xx:xx:xx:xx"
+ifconfig eth1 down ifconfig eth1 hw ether 24:0b:2a:27:e5:9a ifconfig eth1 up
+
+echo 2 > /proc/sys/kernel/printk
+/*** gdb ***/
+https://www.geeksforgeeks.org/gdb-step-by-step-introduction
+/** add an empty file **/
+find $PATH_TO_REPOSITORY -type d ! -path "*.git*" -empty -exec touch '{}'/.gitkeep \;
+/*****/
+DL: http://203.113.186.34/PTO_3G_VTE_ABC.rar
+https://vnix-hn.i-speed.vn/garbage.php
+http://vhtont.sytes.net:40080/DL/thuyen_5MB.rar
+http://vhtont.sytes.net:40080/UL/
+ignore ssl with curl command: https://www.cyberciti.biz/faq/how-to-curl-ignore-ssl-certificate-warnings-command-option/
+
+
+root@172.16.30.126 /123456a@
+cd /home/deploy/ems/ems_web/apache-tomcat-9/webapps/firmware
+
+curl -T "path/to/file" http://10.0.0.2:8099/firmware/
+curl -X POST http://172.16.28.197:8096/cmcwmp/config/start_backup -d '{"serialNumber":"VTGR902752c8","fileUrl":"http://10.0.0.2:8099/firmware/backup","backupTime":"1 Vendor Configuration File","sessionId":"MAAAAAAAAAAA"}' -H 'Content-Type: application/json'
+
+/userfs/bin/obuspa -f /tmp/usp.db -r /tmp/obuspa_factory_reset.txt -v4 &
+/userfs/bin/obuspa -f /tmp/usp.db -r /tmp/obuspa_factory_reset.txt -v0 -c stop && killall -9 obuspa &
+
+ssh tms@172.19.20.106
+tail -f /home/tms/tms-app/tms_core/tms_core.log
+
+log obuspa on ap
+uci set obuspa.log.level=4
+uci set obuspa.log.output='/tmp/obuspa-grep.txt'
+uci set obuspa.log.prototrace='true'
+uci set obuspa.bulkdata.url='http://172.19.20.106:8867'
+/etc/init.d/obuspa restart
+obuspa -f /etc/usp.db -c set Device.BulkData.Profile.2.ReportingInterval 60
+obuspa -f /etc/usp.db -c set Device.BulkData.Profile.2.HTTP.URL 172.19.20.106:8867
+10.0.0.0/8
+192.168.176.0/24
+192.168.178.0/24
+172.16.0.0/12
+voffice.viettel.vn
+mail.viettel.com.vn
+thongtinnhansu.viettel.vn
+sso*.viettel.vn
+
+/userfs/bin/dropbear -F -P /var/run/dropbear.1.pid -p 22 -K 300
+/userfs/bin/tunnel 
+/userfs/bin/tunnel -s -i 171.250.42.195 -r 32768 -l 22 -p 12322 -u thuyenvn
+
+ubus send obuspafm_event '{"name":"cpu","value":"91"}'
+ubus send obuspafm_event '{"name":"cli","value":"set log_level 1"}'
+http://homewifi3.viettel.vn:80/api/command/upload-logfile-ftp
+http://homewifi3.viettel.vn:80/firmware/test.zip
+http://homewifi3.viettel.vn/firmware/AP-2.83-231113.signed.bin
+http://vhtont.sytes.net:80/api/command/upload-logfile-ftp
+http://vhtont.sytes.net:80/firmware/test.zip
+
+curl -F file=@"/test.zip" http://25.0.0.98:80/api/command/upload-logfile-ftp
+/firmware/
+
+# start obuspa
+tftp -gr obuspa 192.168.1.99
+chmod +x /tmp/obuspa
+/tmp/obuspa -f /data/tmp/usp.db -r /data/tmp/obuspa_factory_reset.txt -v4 -p -l /tmp/obuspa-log.txt &
+
+/** ssh uctt **/
+acs serrver: http://10.205.89.139/ems/index
+admin/passs: super_admin/admin
+uctt@172.19.20.115; pass TTTD@ont
+dbclient
+scp xxx -P 11496 vsftpd12@vhtont.sytes.net:/home/vsftpd12/
+=> pass: ontdualbandproject
+tcpdump -naeqi nas1_0 -w /data/log/test-tr069.pcap
+
+/*** git submodule ***/
+https://www.appveyor.com/docs/how-to/private-git-sub-modules/
+https://stackoverflow.com/questions/30180751/avoid-re-entering-password-for-each-submodule
+/*** 
+https://github.com/tuanpm3/Documents
+https://github.com/tuanpm3/Documents/blob/master/Qt/Design%20Patterns%20in%20C%2B%2B%20with%20Qt.pdf
